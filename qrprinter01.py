@@ -1,14 +1,27 @@
 import win32print
 import win32ui
 from PIL import Image, ImageWin
-
+import qrcode
+import cv2
+data = "sanxing dianji data info, date:2022/04/24"
+img_file='code.jpg'
+qr = qrcode.QRCode(version=1,
+                   error_correction=qrcode.constants.ERROR_CORRECT_H,
+                   box_size=10,border=4)
+qr.add_data(data)
+qr.make(fit=True)
+img=qr.make_image()
+img.save(img_file)
+img = cv2.imread(img_file)
+img = cv2.resize(img,(203,203))
+img=cv2.imwrite("savedcode.jpg",img)
 # 物理宽度、高度
-PHYSICALWIDTH = 110
-PHYSICALHEIGHT = 111
+PHYSICALWIDTH = 50
+PHYSICALHEIGHT = 50
 # 物理偏移位置
 
-PHYSICALOFFSETX = 112
-PHYSICALOFFSETY = 113
+PHYSICALOFFSETX = 50
+PHYSICALOFFSETY =50
 printer_name = win32print.GetDefaultPrinter()
 # 选择图片路径
 file_name = "savedcode.jpg"
